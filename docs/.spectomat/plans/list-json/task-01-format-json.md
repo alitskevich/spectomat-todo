@@ -31,7 +31,7 @@
 
 ## Steps
 
-- [ ] **Step 1: Write the failing test** — append to `src/todo.test.js`:
+- [x] **Step 1: Write the failing test** — append to `src/todo.test.js`:
 
 ```js
 import { addItem, listItems, formatItem, markDone, removeItem, wipeItems, formatJson } from "./todo.js";
@@ -64,9 +64,9 @@ describe("formatJson", () => {
 
 Note: only the import line and the new `describe` block are added; all existing tests are untouched.
 
-- [ ] **Step 2: Run it, expect FAIL** — `npm test -- src/todo.test.js`, fails with "formatJson is not a function" (or similar import error)
+- [x] **Step 2: Run it, expect FAIL** — `npm test -- src/todo.test.js`, fails with "formatJson is not a function" (or similar import error)
 
-- [ ] **Step 3: Minimal implementation** — append to `src/todo.js`:
+- [x] **Step 3: Minimal implementation** — append to `src/todo.js`:
 
 ```js
 export function formatJson(items) {
@@ -74,18 +74,17 @@ export function formatJson(items) {
 }
 ```
 
-- [ ] **Step 4: Run it, expect PASS** — `npm test`; all tests pass (existing 32 + 3 new = 35)
+- [x] **Step 4: Run it, expect PASS** — `npm test`; all tests pass (existing 32 + 3 new = 35)
 
-- [ ] **Step 5: Commit** — message `feat(list-json): add formatJson pure function`; the controller stages `src/todo.js` and `src/todo.test.js` and commits — implementer does not run git
+- [x] **Step 5: Commit** — message `feat(list-json): add formatJson pure function`; the controller stages `src/todo.js` and `src/todo.test.js` and commits — implementer does not run git
 
 ## Rulings
 
-(appended by executing-tasks: `- <decision> — <why> — <cost if wrong>`)
+- AC-1.3 test routes through `listItems()` to produce the sorted input — parked Minor: `listItems` has its own test suite; coupling is low-risk and the intent is clear — if `listItems` sort order ever changes, the test fails loudly, which is desirable
+- AC-1.2 key-set check does not verify values are faithfully copied — parked Minor: the one-liner projection makes value-copy bugs impossible; asserting the key set is sufficient for the field-whitelist invariant
 
 ## Result
 
-(filled by executing-tasks when the task is done)
-
-- Commits: <base7>..<head7>
-- Tests: <n>/<n> (<files>)
-- Review: spec ✅ · quality: <clean | K parked>
+- Commits: 71ee4b8..0c0b76a
+- Tests: 35/35 (src/todo.test.js + test/cli.test.js)
+- Review: spec ✅ · quality: 2 parked Minor

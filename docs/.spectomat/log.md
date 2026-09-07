@@ -13,3 +13,4 @@
 - 2026-09-07T19:19Z · D · wipe-done · moved to done · tests 32/32 · 7f8a1da
 - 2026-09-07T19:28Z · A · list-json · spec written, 4 assumptions (D1 formatJson name, D2 compact+CLI newline, D3 error on unknown flag, D4 USAGE_MSG updated) · df12914
 - 2026-09-07T19:30Z · B · list-json · plan: 2 tasks, 7 ACs covered · 59171aa
+- 2026-09-07T19:34Z · C · list-json · Task 1/2 done · tests 35/35 · 0c0b76a
