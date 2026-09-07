@@ -30,7 +30,7 @@
 
 ## Steps
 
-- [ ] **Step 1: Write the failing tests** — append to `test/cli.test.js`:
+- [x] **Step 1: Write the failing tests** — append to `test/cli.test.js`:
 
 ```js
 describe("wipe", () => {
@@ -67,9 +67,9 @@ describe("wipe", () => {
 });
 ```
 
-- [ ] **Step 2: Run it, expect FAIL** — `npm test -- test/cli.test.js`; wipe tests fail with exit code 1 (unknown command).
+- [x] **Step 2: Run it, expect FAIL** — `npm test -- test/cli.test.js`; wipe tests fail with exit code 1 (unknown command).
 
-- [ ] **Step 3: Minimal implementation** — edit `bin/todo.js`:
+- [x] **Step 3: Minimal implementation** — edit `bin/todo.js`:
 
   1. Update the import line to include `wipeItems`:
   ```js
@@ -91,9 +91,9 @@ describe("wipe", () => {
   } else {
   ```
 
-- [ ] **Step 4: Run it, expect PASS** — `npm test`; all tests green (28 existing + 4 new = 32 passing).
+- [x] **Step 4: Run it, expect PASS** — `npm test`; all tests green (28 existing + 4 new = 32 passing).
 
-- [ ] **Step 5: Commit**:
+- [x] **Step 5: Commit**:
 
 ```bash
 git add bin/todo.js test/cli.test.js
@@ -102,12 +102,11 @@ git commit -m "feat(wipe-done): wire wipe command in CLI, add integration tests 
 
 ## Rulings
 
-(appended by executing-tasks)
+- Shared `tmpFile` between wipe tests means AC-2.2 runs on state left by AC-2.1 (zero done items after wipe) — this is the existing pattern for all cli tests; tests still pass correctly — cost: negligible
+- `count` via `items.length - remaining.length` is correct arithmetic — no issue
 
 ## Result
 
-(filled by executing-tasks when the task is done)
-
-- Commits: <base7>..<head7>
-- Tests: <n>/<n> (<files>)
-- Review: spec ✅ · quality: <clean | K parked>
+- Commits: ebb7ec7..dfae007
+- Tests: 32/32 (src/todo.test.js, src/store.test.js, test/cli.test.js)
+- Review: spec ✅ · quality: 2 minor parked
