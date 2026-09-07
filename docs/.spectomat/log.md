@@ -8,3 +8,4 @@
 - 2026-09-07T00:05Z · D · todo-cli · moved to done · tests 24/24 · 1c474f8
 - 2026-09-07T19:11Z · A · wipe-done · spec written, 2 assumptions (D1 wipeItems returns Item[], D2 extra args ignored) · 008c12f
 - 2026-09-07T19:13Z · B · wipe-done · plan: 2 tasks, 8 ACs covered · c16d20c
+- 2026-09-07T19:16Z · C · wipe-done · Task 1/2 done · tests 28/28 · 5da2c6c

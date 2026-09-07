@@ -28,7 +28,7 @@
 
 ## Steps
 
-- [ ] **Step 1: Write the failing tests** — append to `src/todo.test.js`:
+- [x] **Step 1: Write the failing tests** — append to `src/todo.test.js`:
 
 ```js
 import { addItem, listItems, formatItem, markDone, removeItem, wipeItems } from "./todo.js";
@@ -67,9 +67,9 @@ describe("wipeItems", () => {
 
 Note: update the import at the top of `src/todo.test.js` to include `wipeItems`.
 
-- [ ] **Step 2: Run it, expect FAIL** — `npm test -- src/todo.test.js`; fails with `wipeItems is not a function` (or similar).
+- [x] **Step 2: Run it, expect FAIL** — `npm test -- src/todo.test.js`; fails with `wipeItems is not a function` (or similar).
 
-- [ ] **Step 3: Minimal implementation** — append to `src/todo.js`:
+- [x] **Step 3: Minimal implementation** — append to `src/todo.js`:
 
 ```js
 export function wipeItems(items) {
@@ -77,9 +77,9 @@ export function wipeItems(items) {
 }
 ```
 
-- [ ] **Step 4: Run it, expect PASS** — `npm test`; all tests green (existing 24 + 4 new = 28 passing).
+- [x] **Step 4: Run it, expect PASS** — `npm test`; all tests green (existing 24 + 4 new = 28 passing).
 
-- [ ] **Step 5: Commit**:
+- [x] **Step 5: Commit**:
 
 ```bash
 git add src/todo.js src/todo.test.js
@@ -88,12 +88,10 @@ git commit -m "feat(wipe-done): add wipeItems domain function (AC-1.1–AC-1.4)"
 
 ## Rulings
 
-(appended by executing-tasks)
+- AC-1.2 test uses `toEqual(items)` (deep equal), not a mutation check — spec says "unchanged" meaning same values, not no-mutation; pure function contract is informal here — cost: low, filter returns a new array so mutation is not actually possible
 
 ## Result
 
-(filled by executing-tasks when the task is done)
-
-- Commits: <base7>..<head7>
-- Tests: <n>/<n> (<files>)
-- Review: spec ✅ · quality: <clean | K parked>
+- Commits: 4690d25..5da2c6c
+- Tests: 28/28 (src/todo.test.js, src/store.test.js, test/cli.test.js)
+- Review: spec ✅ · quality: 1 minor parked
