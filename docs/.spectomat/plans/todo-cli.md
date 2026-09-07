@@ -240,7 +240,7 @@ export async function writeStore(filePath, items) {
 - Consumes: `addItem`, `listItems`, `formatItem`, `markDone`, `removeItem` from `src/todo.js`; `readStore`, `writeStore` from `src/store.js`
 - Produces: executable CLI (`node bin/todo.js <cmd> [arg]`)
 
-- [ ] **Step 1: Write the failing integration tests** — create `test/cli.test.js`:
+- [x] **Step 1: Write the failing integration tests** — create `test/cli.test.js`:
 
 ```js
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
@@ -363,9 +363,9 @@ describe("config", () => {
 });
 ```
 
-- [ ] **Step 2: Run tests, expect FAIL** — `npm test -- test/cli.test.js`, fails with "Cannot find module" or ENOENT on bin/todo.js
+- [x] **Step 2: Run tests, expect FAIL** — `npm test -- test/cli.test.js`, fails with "Cannot find module" or ENOENT on bin/todo.js
 
-- [ ] **Step 3: Implement `bin/todo.js`** (create `bin/` directory first):
+- [x] **Step 3: Implement `bin/todo.js`** (create `bin/` directory first):
 
 ```js
 #!/usr/bin/env node
@@ -407,10 +407,12 @@ if (cmd === "add") {
 }
 ```
 
-- [ ] **Step 4: Run tests, expect PASS** — `npm test`, all suites green
+- [x] **Step 4: Run tests, expect PASS** — `npm test`, all suites green
 
-- [ ] **Step 5: Commit** — `git add bin/todo.js test/cli.test.js && git commit -m "feat(todo-cli): CLI entry point and integration tests (bin/todo.js)"`
+- [x] **Step 5: Commit** — `git add bin/todo.js test/cli.test.js && git commit -m "feat(todo-cli): CLI entry point and integration tests (bin/todo.js)"`
 
 ## Rulings
 
 - Task 2 · dynamic `import("fs/promises")` in src/store.test.js line 31 left as-is — Minor finding from reviewer; test is correct and cleanup is working; not worth a fix round for a test-only style nit.
+- Task 3 · `afterEach(async () => { await ... })` pattern is correct in vitest — framework awaits the returned promise; reviewer concern is unfounded. Left as-is.
+- Task 3 · AC-5.1 test uses async for top-level unlink cleanup in finally block — functionally correct; Minor style nit parked.
