@@ -28,3 +28,7 @@ export function removeItem(items, id) {
 export function wipeItems(items) {
   return items.filter((i) => !i.done);
 }
+
+export function formatJson(items) {
+  return JSON.stringify(items.map((i) => ({ id: i.id, text: i.text, done: i.done })));
+}

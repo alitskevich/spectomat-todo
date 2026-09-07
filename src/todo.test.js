@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { addItem, listItems, formatItem, markDone, removeItem, wipeItems } from "./todo.js";
+import { addItem, listItems, formatItem, markDone, removeItem, wipeItems, formatJson } from "./todo.js";
 
 describe("addItem", () => {
   it("AC-3.1: empty store → id 1, done false", () => {
@@ -94,5 +94,28 @@ describe("wipeItems", () => {
       { id: 2, text: "b", done: true },
     ];
     expect(wipeItems(items)).toEqual([]);
+  });
+});
+
+describe("formatJson", () => {
+  it("AC-1.1: empty list returns '[]'", () => {
+    expect(formatJson([])).toBe("[]");
+  });
+
+  it("AC-1.2: output has exactly id, text, done per item — no extra fields", () => {
+    const result = JSON.parse(formatJson([{ id: 1, text: "Buy milk", done: false }]));
+    expect(Object.keys(result[0]).sort()).toEqual(["done", "id", "text"]);
+  });
+
+  it("AC-1.3: preserves caller ordering — open by id first, then done by id", () => {
+    const items = listItems([
+      { id: 2, text: "b", done: false },
+      { id: 3, text: "c", done: true },
+      { id: 1, text: "a", done: false },
+    ]);
+    const result = JSON.parse(formatJson(items));
+    expect(result[0]).toMatchObject({ id: 1, done: false });
+    expect(result[1]).toMatchObject({ id: 2, done: false });
+    expect(result[2]).toMatchObject({ id: 3, done: true });
   });
 });
