@@ -24,3 +24,7 @@ export function markDone(items, id) {
 export function removeItem(items, id) {
   return items.filter((i) => i.id !== id);
 }
+
+export function wipeItems(items) {
+  return items.filter((i) => !i.done);
+}

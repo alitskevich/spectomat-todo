@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { addItem, listItems, formatItem, markDone, removeItem } from "./todo.js";
+import { addItem, listItems, formatItem, markDone, removeItem, wipeItems } from "./todo.js";
 
 describe("addItem", () => {
   it("AC-3.1: empty store → id 1, done false", () => {
@@ -63,5 +63,36 @@ describe("removeItem", () => {
     const updated = removeItem(items, 1);
     expect(updated.find((i) => i.id === 1)).toBeUndefined();
     expect(updated.length).toBe(1);
+  });
+});
+
+describe("wipeItems", () => {
+  it("AC-1.1: empty list → empty list", () => {
+    expect(wipeItems([])).toEqual([]);
+  });
+  it("AC-1.2: no done items → list unchanged", () => {
+    const items = [
+      { id: 1, text: "a", done: false },
+      { id: 2, text: "b", done: false },
+    ];
+    expect(wipeItems(items)).toEqual(items);
+  });
+  it("AC-1.3: removes only done items; open items and ids unchanged", () => {
+    const items = [
+      { id: 1, text: "a", done: false },
+      { id: 2, text: "b", done: true },
+      { id: 3, text: "c", done: false },
+    ];
+    expect(wipeItems(items)).toEqual([
+      { id: 1, text: "a", done: false },
+      { id: 3, text: "c", done: false },
+    ]);
+  });
+  it("AC-1.4: all done → empty list", () => {
+    const items = [
+      { id: 1, text: "a", done: true },
+      { id: 2, text: "b", done: true },
+    ];
+    expect(wipeItems(items)).toEqual([]);
   });
 });
