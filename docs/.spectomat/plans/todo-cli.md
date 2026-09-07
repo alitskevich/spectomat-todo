@@ -157,7 +157,7 @@ export function removeItem(items, id) {
   - `readStore(filePath: string): Promise<Item[]>` — returns `[]` when file absent
   - `writeStore(filePath: string, items: Item[]): Promise<void>` — writes 2-space JSON
 
-- [ ] **Step 1: Write the failing tests** — create `src/store.test.js`:
+- [x] **Step 1: Write the failing tests** — create `src/store.test.js`:
 
 ```js
 import { describe, it, expect, afterEach } from "vitest";
@@ -202,9 +202,9 @@ describe("writeStore / readStore", () => {
 });
 ```
 
-- [ ] **Step 2: Run tests, expect FAIL** — `npm test -- src/store.test.js`, fails with "Cannot find module"
+- [x] **Step 2: Run tests, expect FAIL** — `npm test -- src/store.test.js`, fails with "Cannot find module"
 
-- [ ] **Step 3: Implement `src/store.js`**:
+- [x] **Step 3: Implement `src/store.js`**:
 
 ```js
 import { readFile, writeFile } from "fs/promises";
@@ -224,9 +224,9 @@ export async function writeStore(filePath, items) {
 }
 ```
 
-- [ ] **Step 4: Run tests, expect PASS** — `npm test -- src/store.test.js`, all green; full suite stays green
+- [x] **Step 4: Run tests, expect PASS** — `npm test -- src/store.test.js`, all green; full suite stays green
 
-- [ ] **Step 5: Commit** — `git add src/store.js src/store.test.js && git commit -m "feat(todo-cli): filesystem adapter (src/store.js)"`
+- [x] **Step 5: Commit** — `git add src/store.js src/store.test.js && git commit -m "feat(todo-cli): filesystem adapter (src/store.js)"`
 
 ---
 
@@ -410,3 +410,7 @@ if (cmd === "add") {
 - [ ] **Step 4: Run tests, expect PASS** — `npm test`, all suites green
 
 - [ ] **Step 5: Commit** — `git add bin/todo.js test/cli.test.js && git commit -m "feat(todo-cli): CLI entry point and integration tests (bin/todo.js)"`
+
+## Rulings
+
+- Task 2 · dynamic `import("fs/promises")` in src/store.test.js line 31 left as-is — Minor finding from reviewer; test is correct and cleanup is working; not worth a fix round for a test-only style nit.
