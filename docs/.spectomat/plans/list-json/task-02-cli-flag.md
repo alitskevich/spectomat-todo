@@ -31,7 +31,7 @@
 
 ## Steps
 
-- [ ] **Step 1: Write the failing integration tests** — append to `test/cli.test.js`:
+- [x] **Step 1: Write the failing integration tests** — append to `test/cli.test.js`:
 
 ```js
 describe("list --json", () => {
@@ -69,9 +69,9 @@ describe("list --json", () => {
 });
 ```
 
-- [ ] **Step 2: Run it, expect FAIL** — `npm test -- test/cli.test.js`, AC-2.1 and AC-2.4 fail (unknown flag not handled, `--json` not recognised)
+- [x] **Step 2: Run it, expect FAIL** — `npm test -- test/cli.test.js`, AC-2.1 and AC-2.4 fail (unknown flag not handled, `--json` not recognised)
 
-- [ ] **Step 3: Minimal implementation** — apply these two edits to `bin/todo.js`:
+- [x] **Step 3: Minimal implementation** — apply these two edits to `bin/todo.js`:
 
 **Edit 1 — update the import** (add `formatJson` to the named imports):
 
@@ -101,18 +101,16 @@ const USAGE_MSG = "Usage: todo <add <text>|list [--json]|done <id>|remove <id>|w
 }
 ```
 
-- [ ] **Step 4: Run it, expect PASS** — `npm test`; all tests pass (existing 32 + 3 unit = 35 + 4 integration = 39)
+- [x] **Step 4: Run it, expect PASS** — `npm test`; all tests pass (existing 32 + 3 unit = 35 + 4 integration = 39)
 
-- [ ] **Step 5: Commit** — message `feat(list-json): wire --json flag in CLI`; the controller stages `bin/todo.js` and `test/cli.test.js` and commits — implementer does not run git
+- [x] **Step 5: Commit** — message `feat(list-json): wire --json flag in CLI`; the controller stages `bin/todo.js` and `test/cli.test.js` and commits — implementer does not run git
 
 ## Rulings
 
-(appended by executing-tasks: `- <decision> — <why> — <cost if wrong>`)
+- AC-2.4 test checks `r.stderr.toContain("Usage:")` rather than the full USAGE_MSG — parked Minor: the USAGE_MSG is a single constant; a prefix check is sufficient to verify `die()` was called; tighter assertion would be redundant given the unit tests cover the exact string
 
 ## Result
 
-(filled by executing-tasks when the task is done)
-
-- Commits: <base7>..<head7>
-- Tests: <n>/<n> (<files>)
-- Review: spec ✅ · quality: <clean | K parked>
+- Commits: f2eb9c3..f365f6e
+- Tests: 39/39 (src/todo.test.js + test/cli.test.js)
+- Review: spec ✅ · quality: 1 parked Minor
