@@ -18,7 +18,7 @@ docs/.spectomat/
   drafts/      raw ideas, one .md each — the user drops them here
   specs/       normative specs, one per draft slug — you write these
   plans/       one overview per spec slug, plus <slug>/task-NN-<name>.md per task — you write these
-  done/        finished specs and plans, moved here when a plan completes
+  done/        <slug>.draft.md, <slug>.spec.md, <slug>.plan.md and <slug>/ task files, moved here when a plan completes
   log.md       append-only, one line per unit of work
   factory.md   this file
   loop.md      the Stop hook's state (iteration counter, prompt) — gitignored, never edit
@@ -42,9 +42,9 @@ Every iteration, in order:
      first one).
    - **B · Spec → Plan**: a file in `specs/` has no `plans/<slug>.md`
      (alphabetical, first one).
-   - **C · Plan → Task**: a task file under `plans/<slug>/` has an unchecked
-     `- [ ]` step (alphabetical first plan; within it, the lowest-numbered
-     task file with an unchecked step).
+   - **C · Plan → Wave**: a task file under `plans/<slug>/` has an unchecked
+     `- [ ]` step (alphabetical first plan; within it, every ready task with
+     disjoint Files, lowest numbers first, at most three — see unit C).
    - **D · Plan → Done**: every task file under `plans/<slug>/` has all steps
      checked.
    - **E · Empty**: none of the above. Go to *Completion*.
@@ -91,13 +91,16 @@ Read the spec in full. Use `spectomat:writing-plans` to write the overview
 task file carries checkbox steps (`- [ ]`); that is how unit C finds its work.
 Run the skill's self-review. No code in this unit.
 
-### C · Plan → Task
+### C · Plan → Wave
 
-Take the lowest-numbered task file under `plans/<slug>/` with an unchecked
-step. Execute that task and only that task with `spectomat:executing-tasks`:
-the task file is the brief, a fresh implementer subagent, review of the diff,
-at most three fix rounds, then rulings and the Result recorded in the task
-file. `spectomat:test-driven-development` governs every step. If the task
+In the alphabetically first plan with open work, take the **wave**: every
+task file whose `Depends on` tasks are all closed and whose Files are
+pairwise disjoint with the others in the wave, lowest numbers first, at most
+three. Execute the wave with `spectomat:executing-tasks`: one fresh
+implementer per task in parallel, none of them running git, then one commit
+per task by you, one review per task, at most three fix rounds each, then
+rulings and the Result in each task file. A wave of one is the common case.
+`spectomat:test-driven-development` governs every step. If the task
 reveals work the plan lacks, add a new task file with the next number and a
 row in the overview; do not absorb it.
 
@@ -105,9 +108,17 @@ Work on the current branch. Never create branches or worktrees.
 
 ### D · Plan → Done
 
-Run every gate and read the output. Then `git mv specs/<slug>.md done/`,
-`git mv plans/<slug>.md done/` and `git mv plans/<slug> done/<slug>`. Log the
-unit with the gate numbers.
+Run every gate and read the output. Then move the trail into `done/` under
+names that cannot collide:
+
+```bash
+git mv specs/<slug>.md  done/<slug>.spec.md
+git mv plans/<slug>.md  done/<slug>.plan.md
+git mv plans/<slug>     done/<slug>
+```
+
+The draft is already there as `done/<slug>.draft.md`. Log the unit with the
+gate numbers.
 
 ## Verification Gates
 
