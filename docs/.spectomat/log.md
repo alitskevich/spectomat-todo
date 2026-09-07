@@ -6,3 +6,4 @@
 - 2026-09-07T00:03Z · C · todo-cli · Task 2/3 done · tests 12/12 · e453f47
 - 2026-09-07T00:04Z · C · todo-cli · Task 3/3 done · tests 24/24 · b507ea6
 - 2026-09-07T00:05Z · D · todo-cli · moved to done · tests 24/24 · 1c474f8
+- 2026-09-07T19:11Z · A · wipe-done · spec written, 2 assumptions (D1 wipeItems returns Item[], D2 extra args ignored) · 008c12f
