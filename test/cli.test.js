@@ -116,3 +116,36 @@ describe("config", () => {
     }
   });
 });
+
+describe("wipe", () => {
+  it("AC-2.1: removes done items, prints 'Wiped N item(s)'", () => {
+    run(["add", "a"], tmpFile);
+    run(["add", "b"], tmpFile);
+    run(["done", "1"], tmpFile);
+    const r = run(["wipe"], tmpFile);
+    expect(r.status).toBe(0);
+    expect(r.stdout.trim()).toBe("Wiped 1 item(s)");
+  });
+
+  it("AC-2.2: no done items → 'Wiped 0 item(s)', exits 0", () => {
+    run(["add", "a"], tmpFile);
+    const r = run(["wipe"], tmpFile);
+    expect(r.status).toBe(0);
+    expect(r.stdout.trim()).toBe("Wiped 0 item(s)");
+  });
+
+  it("AC-2.3: open items remain with ids unchanged after wipe", () => {
+    run(["add", "a"], tmpFile); // id 1
+    run(["add", "b"], tmpFile); // id 2
+    run(["done", "1"], tmpFile);
+    run(["wipe"], tmpFile);
+    const r = run(["list"], tmpFile);
+    expect(r.stdout.trim()).toBe("[ ] 2 b");
+  });
+
+  it("AC-2.4: usage message includes 'wipe'", () => {
+    const r = run([], tmpFile);
+    expect(r.stderr).toContain("wipe");
+    expect(r.status).toBe(1);
+  });
+});
