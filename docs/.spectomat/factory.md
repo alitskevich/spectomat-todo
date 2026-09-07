@@ -17,7 +17,7 @@ beats a stalled factory.
 docs/.spectomat/
   drafts/      raw ideas, one .md each — the user drops them here
   specs/       normative specs, one per draft slug — you write these
-  plans/       implementation plans, one per spec slug — you write these
+  plans/       one overview per spec slug, plus <slug>/task-NN-<name>.md per task — you write these
   done/        finished specs and plans, moved here when a plan completes
   log.md       append-only, one line per unit of work
   factory.md   this file
@@ -40,18 +40,21 @@ Every iteration, in order:
 2. **Pick exactly one unit**, the first that applies:
    - **A · Draft → Spec**: a file exists in `drafts/` (alphabetical order,
      first one).
-   - **B · Spec → Plan**: a file in `specs/` has no counterpart in `plans/`
+   - **B · Spec → Plan**: a file in `specs/` has no `plans/<slug>.md`
      (alphabetical, first one).
-   - **C · Plan → Task**: a file in `plans/` has an unchecked `- [ ]` step
-     (alphabetical, first plan; within it, the first task with an unchecked
-     step).
-   - **D · Plan → Done**: a file in `plans/` has every step checked and is not
-     yet in `done/`.
+   - **C · Plan → Task**: a task file under `plans/<slug>/` has an unchecked
+     `- [ ]` step (alphabetical first plan; within it, the lowest-numbered
+     task file with an unchecked step).
+   - **D · Plan → Done**: every task file under `plans/<slug>/` has all steps
+     checked.
    - **E · Empty**: none of the above. Go to *Completion*.
 3. **Do that one unit** (definitions below). Not two.
 4. **Verify** with the gates, then **commit** — one commit per unit,
    `<type>(<slug>): <what changed>`.
-5. **Log** one line to `log.md`, then stop the iteration.
+5. **Log** one line to `log.md`, then stop the iteration. In unit C the plan
+   tick and the log line share one `chore(<slug>): …` commit after the
+   implementer's own commits; in every other unit the log line rides in the
+   unit's commit. Never a separate commit just for the log.
 
 Drafts always win: while `drafts/` holds a file, no plan advances. That is the
 order the user asked for — every idea is specified before any is built.
@@ -82,25 +85,29 @@ and record.
 
 ### B · Spec → Plan
 
-Read the spec in full. Use `spectomat:writing-plans` to write
-`plans/<slug>.md`. Every task carries checkbox steps (`- [ ]`); that is how
-unit C finds its work. Run the skill's self-review. No code in this unit.
+Read the spec in full. Use `spectomat:writing-plans` to write the overview
+`plans/<slug>.md` and one self-contained task file per task under
+`plans/<slug>/`, from the plugin's `plan.md` and `task.md` templates. Every
+task file carries checkbox steps (`- [ ]`); that is how unit C finds its work.
+Run the skill's self-review. No code in this unit.
 
 ### C · Plan → Task
 
-Open the plan; find the first task with an unchecked step. Execute that task
-and only that task with `spectomat:executing-tasks`: brief, fresh implementer
-subagent, review of the diff, at most three fix rounds, then rulings recorded
-in the plan. `spectomat:test-driven-development` governs every step. Tick each
-step as it completes. If the task reveals work the plan lacks, append a new
-task at the end of the plan; do not absorb it.
+Take the lowest-numbered task file under `plans/<slug>/` with an unchecked
+step. Execute that task and only that task with `spectomat:executing-tasks`:
+the task file is the brief, a fresh implementer subagent, review of the diff,
+at most three fix rounds, then rulings and the Result recorded in the task
+file. `spectomat:test-driven-development` governs every step. If the task
+reveals work the plan lacks, add a new task file with the next number and a
+row in the overview; do not absorb it.
 
 Work on the current branch. Never create branches or worktrees.
 
 ### D · Plan → Done
 
-Run every gate and read the output. Then `git mv specs/<slug>.md done/` and
-`git mv plans/<slug>.md done/`. Log the unit with the gate numbers.
+Run every gate and read the output. Then `git mv specs/<slug>.md done/`,
+`git mv plans/<slug>.md done/` and `git mv plans/<slug> done/<slug>`. Log the
+unit with the gate numbers.
 
 ## Verification Gates
 
@@ -118,7 +125,8 @@ the gates.
 
 ## Log Format
 
-Append to `log.md`, never edit earlier lines:
+Append to `log.md`, never edit earlier lines. The timestamp is the output of
+`date -u +%FT%RZ`, run in this iteration — never a time typed from memory:
 
 ```
 - 2026-09-07T19:40Z · A · <slug> · spec written, 3 assumptions · a1b2c3d
