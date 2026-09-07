@@ -34,7 +34,7 @@
   - `markDone(items: Item[], id: number): Item[]` — sets `done: true` on matched id
   - `removeItem(items: Item[], id: number): Item[]` — filters out matched id
 
-- [ ] **Step 1: Write the failing tests** — create `src/todo.test.js`:
+- [x] **Step 1: Write the failing tests** — create `src/todo.test.js`:
 
 ```js
 import { describe, it, expect } from "vitest";
@@ -106,9 +106,9 @@ describe("removeItem", () => {
 });
 ```
 
-- [ ] **Step 2: Run tests, expect FAIL** — `npm test -- src/todo.test.js`, fails with "Cannot find module"
+- [x] **Step 2: Run tests, expect FAIL** — `npm test -- src/todo.test.js`, fails with "Cannot find module"
 
-- [ ] **Step 3: Implement `src/todo.js`**:
+- [x] **Step 3: Implement `src/todo.js`**:
 
 ```js
 export function createItem(id, text) {
@@ -139,9 +139,9 @@ export function removeItem(items, id) {
 }
 ```
 
-- [ ] **Step 4: Run tests, expect PASS** — `npm test -- src/todo.test.js`, all green; full suite stays green
+- [x] **Step 4: Run tests, expect PASS** — `npm test -- src/todo.test.js`, all green; full suite stays green
 
-- [ ] **Step 5: Commit** — `git add src/todo.js src/todo.test.js && git commit -m "feat(todo-cli): pure domain functions (src/todo.js)"`
+- [x] **Step 5: Commit** — `git add src/todo.js src/todo.test.js && git commit -m "feat(todo-cli): pure domain functions (src/todo.js)"`
 
 ---
 
