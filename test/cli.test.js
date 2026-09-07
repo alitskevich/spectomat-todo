@@ -149,3 +149,37 @@ describe("wipe", () => {
     expect(r.status).toBe(1);
   });
 });
+
+describe("list --json", () => {
+  it("AC-2.1: prints a valid JSON array and exits 0", () => {
+    run(["add", "Buy milk"], tmpFile);
+    run(["add", "Walk dog"], tmpFile);
+    run(["done", "1"], tmpFile);
+    const r = run(["list", "--json"], tmpFile);
+    expect(r.status).toBe(0);
+    const parsed = JSON.parse(r.stdout.trim());
+    expect(Array.isArray(parsed)).toBe(true);
+    expect(parsed.length).toBe(2);
+    expect(parsed[0]).toMatchObject({ id: 2, text: "Walk dog", done: false });
+    expect(parsed[1]).toMatchObject({ id: 1, text: "Buy milk", done: true });
+  });
+
+  it("AC-2.2: empty store prints [] and exits 0", () => {
+    const r = run(["list", "--json"], tmpFile);
+    expect(r.status).toBe(0);
+    expect(r.stdout.trim()).toBe("[]");
+  });
+
+  it("AC-2.3: plain list output is byte-identical to pre-change behaviour", () => {
+    run(["add", "Buy milk"], tmpFile);
+    const r = run(["list"], tmpFile);
+    expect(r.status).toBe(0);
+    expect(r.stdout.trim()).toBe("[ ] 1 Buy milk");
+  });
+
+  it("AC-2.4: list <other> prints usage to stderr and exits 1", () => {
+    const r = run(["list", "--unknown"], tmpFile);
+    expect(r.status).toBe(1);
+    expect(r.stderr).toContain("Usage:");
+  });
+});
