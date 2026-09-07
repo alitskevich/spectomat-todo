@@ -1,0 +1,2 @@
+# Spectomat factory log
+
