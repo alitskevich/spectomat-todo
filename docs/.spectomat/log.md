@@ -15,3 +15,4 @@
 - 2026-09-07T19:30Z · B · list-json · plan: 2 tasks, 7 ACs covered · 59171aa
 - 2026-09-07T19:34Z · C · list-json · Task 1/2 done · tests 35/35 · 0c0b76a
 - 2026-09-07T19:37Z · C · list-json · Task 2/2 done · tests 39/39 · f365f6e
+- 2026-09-07T19:37Z · D · list-json · moved to done · tests 39/39 · TBD
