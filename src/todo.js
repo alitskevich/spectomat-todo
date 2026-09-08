@@ -32,3 +32,7 @@ export function wipeItems(items) {
 export function formatJson(items) {
   return JSON.stringify(items.map((i) => ({ id: i.id, text: i.text, done: i.done })));
 }
+
+export function editItem(items, id, text) {
+  return items.map((i) => (i.id === id ? { ...i, text } : i));
+}

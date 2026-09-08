@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { addItem, listItems, formatItem, markDone, removeItem, wipeItems, formatJson } from "./todo.js";
+import { addItem, listItems, formatItem, markDone, removeItem, wipeItems, formatJson, editItem } from "./todo.js";
 
 describe("addItem", () => {
   it("AC-3.1: empty store → id 1, done false", () => {
@@ -117,5 +117,29 @@ describe("formatJson", () => {
     expect(result[0]).toMatchObject({ id: 1, done: false });
     expect(result[1]).toMatchObject({ id: 2, done: false });
     expect(result[2]).toMatchObject({ id: 3, done: true });
+  });
+});
+
+describe("editItem", () => {
+  it("AC-1.1: replaces text on the matching item; id and done are unchanged", () => {
+    const items = [{ id: 1, text: "Buy milk", done: false }];
+    const result = editItem(items, 1, "Buy oat milk");
+    expect(result[0]).toEqual({ id: 1, text: "Buy oat milk", done: false });
+  });
+
+  it("AC-1.2: does not mutate other items in the array", () => {
+    const items = [
+      { id: 1, text: "Buy milk", done: false },
+      { id: 2, text: "Walk dog", done: true },
+    ];
+    const result = editItem(items, 1, "Buy oat milk");
+    expect(result[1]).toEqual({ id: 2, text: "Walk dog", done: true });
+    expect(result.length).toBe(2);
+  });
+
+  it("AC-1.3: id absent from array returns array unchanged", () => {
+    const items = [{ id: 1, text: "Buy milk", done: false }];
+    const result = editItem(items, 99, "anything");
+    expect(result).toEqual(items);
   });
 });
