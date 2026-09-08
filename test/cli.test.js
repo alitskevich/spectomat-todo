@@ -219,3 +219,40 @@ describe("edit", () => {
     expect(r.stderr).toContain("Usage:");
   });
 });
+
+describe("reopen", () => {
+  it("AC-2.1: marks a done item as open and exits 0 with no stdout", () => {
+    run(["add", "Buy milk"], tmpFile);
+    run(["done", "1"], tmpFile);
+    const r = run(["reopen", "1"], tmpFile);
+    expect(r.status).toBe(0);
+    expect(r.stdout).toBe("");
+  });
+
+  it("AC-2.2: todo list shows [ ] for reopened item", () => {
+    run(["add", "Buy milk"], tmpFile);
+    run(["done", "1"], tmpFile);
+    run(["reopen", "1"], tmpFile);
+    const r = run(["list"], tmpFile);
+    expect(r.stdout).toContain("[ ] 1 Buy milk");
+  });
+
+  it("AC-2.3: reopening an already-open item exits 0 with no stdout", () => {
+    run(["add", "Buy milk"], tmpFile);
+    const r = run(["reopen", "1"], tmpFile);
+    expect(r.status).toBe(0);
+    expect(r.stdout).toBe("");
+  });
+
+  it("AC-2.4: unknown id prints error to stderr and exits 1", () => {
+    const r = run(["reopen", "99"], tmpFile);
+    expect(r.status).toBe(1);
+    expect(r.stderr).toContain("Item 99 not found");
+  });
+
+  it("AC-2.5: missing id prints usage to stderr and exits 1", () => {
+    const r = run(["reopen"], tmpFile);
+    expect(r.status).toBe(1);
+    expect(r.stderr).toContain("Usage:");
+  });
+});
