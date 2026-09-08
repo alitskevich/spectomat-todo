@@ -36,3 +36,7 @@ export function formatJson(items) {
 export function editItem(items, id, text) {
   return items.map((i) => (i.id === id ? { ...i, text } : i));
 }
+
+export function markOpen(items, id) {
+  return items.map((i) => (i.id === id ? { ...i, done: false } : i));
+}

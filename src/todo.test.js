@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { addItem, listItems, formatItem, markDone, removeItem, wipeItems, formatJson, editItem } from "./todo.js";
+import { addItem, listItems, formatItem, markDone, removeItem, wipeItems, formatJson, editItem, markOpen } from "./todo.js";
 
 describe("addItem", () => {
   it("AC-3.1: empty store → id 1, done false", () => {
@@ -141,5 +141,35 @@ describe("editItem", () => {
     const items = [{ id: 1, text: "Buy milk", done: false }];
     const result = editItem(items, 99, "anything");
     expect(result).toEqual(items);
+  });
+});
+
+describe("markOpen", () => {
+  it("AC-1.1: sets done to false on matching item; id and text are unchanged", () => {
+    const items = [{ id: 1, text: "Buy milk", done: true }];
+    const result = markOpen(items, 1);
+    expect(result[0]).toEqual({ id: 1, text: "Buy milk", done: false });
+  });
+
+  it("AC-1.2: does not mutate other items in the array", () => {
+    const items = [
+      { id: 1, text: "Buy milk", done: true },
+      { id: 2, text: "Walk dog", done: false },
+    ];
+    const result = markOpen(items, 1);
+    expect(result[1]).toEqual({ id: 2, text: "Walk dog", done: false });
+    expect(result.length).toBe(2);
+  });
+
+  it("AC-1.3: id absent from array returns array unchanged", () => {
+    const items = [{ id: 1, text: "Buy milk", done: true }];
+    const result = markOpen(items, 99);
+    expect(result).toEqual(items);
+  });
+
+  it("AC-1.4: already-open item returns done: false (no-op state)", () => {
+    const items = [{ id: 1, text: "Buy milk", done: false }];
+    const result = markOpen(items, 1);
+    expect(result[0]).toEqual({ id: 1, text: "Buy milk", done: false });
   });
 });
