@@ -31,7 +31,7 @@
 
 ## Steps
 
-- [ ] **Step 1: Write the failing integration tests** — append to `test/cli.test.js`:
+- [x] **Step 1: Write the failing integration tests** — append to `test/cli.test.js`:
 
 ```js
 describe("reopen", () => {
@@ -72,9 +72,9 @@ describe("reopen", () => {
 });
 ```
 
-- [ ] **Step 2: Run it, expect FAIL** — `npm test -- test/cli.test.js`; AC-2.1 and others fail (`reopen` command not yet wired)
+- [x] **Step 2: Run it, expect FAIL** — `npm test -- test/cli.test.js`; AC-2.1 and others fail (`reopen` command not yet wired)
 
-- [ ] **Step 3: Minimal implementation** — apply these three edits to `bin/todo.js`:
+- [x] **Step 3: Minimal implementation** — apply these three edits to `bin/todo.js`:
 
 **Edit 1 — update the import** (line 2, add `markOpen`):
 ```js
@@ -98,10 +98,19 @@ const USAGE_MSG = "Usage: todo <add <text>|list [--json]|done <id>|remove <id>|w
 }
 ```
 
-- [ ] **Step 4: Run it, expect PASS** — `npm test`; all tests pass (existing 51 + 5 new = 56)
+- [x] **Step 4: Run it, expect PASS** — `npm test`; all tests pass (existing 51 + 5 new = 56)
 
-- [ ] **Step 5: Commit** — message `feat(reopen-item): wire reopen command in CLI`; the controller stages `bin/todo.js` and `test/cli.test.js` and commits — implementer does not run git
+- [x] **Step 5: Commit** — message `feat(reopen-item): wire reopen command in CLI`; the controller stages `bin/todo.js` and `test/cli.test.js` and commits — implementer does not run git
 
 ## Rulings
 
+- `parseInt(arg, 10)` returns NaN for non-numeric ids — pre-existing pattern across all id-taking commands, out of scope — parked Minor
+- USAGE_MSG exact string confirmed in diff — no issue
+- Argv destructuring unchanged as required — confirmed
+- AC-2.4 test runs on empty store — correct per beforeEach reset — parked Minor
+
 ## Result
+
+- Commits: 390e9a2..f5ca4e6
+- Tests: 56/56 (src/todo.test.js + test/cli.test.js)
+- Review: spec ✅ · quality: 4 parked Minor (all pre-existing patterns)
