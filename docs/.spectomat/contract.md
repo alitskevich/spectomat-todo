@@ -37,16 +37,17 @@ Every iteration, in order:
    finish and commit that phase or `git checkout -- .` and `git clean -fd` the
    paths you own. `state.md`, `log.md` and `work/` are gitignored and never count as dirt. Never start a
    phase on a dirty tree. Never touch `drafts/` files except to move them.
-2. **Pick exactly one phase**, the first that applies:
-   - **A · Draft → Spec**: a file exists in `drafts/` (alphabetical order,
-     first one).
-   - **B · Spec → Plan**: a file in `specs/` has no `plans/<slug>.md`
-     (alphabetical, first one).
+2. **Pick exactly one phase**, the first that applies — finish work in
+   progress before taking on anything new:
+   - **D · Plan → Done**: every task file under `plans/<slug>/` has all steps
+     checked (alphabetical, first one).
    - **C · Plan → Wave**: a task file under `plans/<slug>/` has an unchecked
      `- [ ]` step (alphabetical first plan; within it, every ready task with
      disjoint Files, lowest numbers first, at most three — see phase C).
-   - **D · Plan → Done**: every task file under `plans/<slug>/` has all steps
-     checked.
+   - **B · Spec → Plan**: a file in `specs/` has no `plans/<slug>.md`
+     (alphabetical, first one).
+   - **A · Draft → Spec**: a file exists in `drafts/` (alphabetical, first
+     one).
    - **E · Empty**: none of the above. Go to *Completion*.
 3. **Do that one phase** (definitions below). Not two.
 4. **Verify** with the gates, then **commit** — one commit per phase,
@@ -56,8 +57,9 @@ Every iteration, in order:
    phase is on record. In phase C the plan tick is one `chore(<slug>): …`
    commit after the implementer's own commits.
 
-Drafts always win: while `drafts/` holds a file, no plan advances. That is the
-order the user asked for — every idea is specified before any is built.
+Work in progress always wins: a started plan is finished and archived before
+the next spec is planned, and every spec is planned before the next draft is
+read. New drafts wait until the floor ahead of them is clear.
 
 ### Three strikes
 
