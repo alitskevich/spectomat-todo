@@ -18,4 +18,4 @@
 - 2026-09-07T19:37Z · D · list-json · moved to done · tests 39/39 · 72da848
 - 2026-09-08T09:07Z · A · edit-text · spec written, 5 assumptions (D1 editItem name, D2 arg2 destructuring, D3 no stdout, D4 empty text = usage error, D5 USAGE_MSG updated) · fae772b
 - 2026-09-08T09:11Z · A · reopen-item · spec written, 5 assumptions (D1 markOpen name, D2 reopen after edit in USAGE_MSG, D3 always write store, D4 no stdout, D5 no destructuring change) · 1ec441a
-- 2026-09-08T09:14Z · B · edit-text · plan: 2 tasks, 8 ACs covered
+- 2026-09-08T09:14Z · B · edit-text · plan: 2 tasks, 8 ACs covered · 847d568
