@@ -31,7 +31,7 @@
 
 ## Steps
 
-- [ ] **Step 1: Write the failing integration tests** — append to `test/cli.test.js`:
+- [x] **Step 1: Write the failing integration tests** — append to `test/cli.test.js`:
 
 ```js
 describe("edit", () => {
@@ -71,9 +71,9 @@ describe("edit", () => {
 });
 ```
 
-- [ ] **Step 2: Run it, expect FAIL** — `npm test -- test/cli.test.js`; AC-2.1 and others fail (`edit` command not yet wired)
+- [x] **Step 2: Run it, expect FAIL** — `npm test -- test/cli.test.js`; AC-2.1 and others fail (`edit` command not yet wired)
 
-- [ ] **Step 3: Minimal implementation** — apply these four edits to `bin/todo.js`:
+- [x] **Step 3: Minimal implementation** — apply these four edits to `bin/todo.js`:
 
 **Edit 1 — update the import** (line 2, add `editItem`):
 ```js
@@ -102,10 +102,18 @@ const [, , cmd, arg, arg2] = process.argv;
 }
 ```
 
-- [ ] **Step 4: Run it, expect PASS** — `npm test`; all tests pass (existing 42 + 5 new = 47)
+- [x] **Step 4: Run it, expect PASS** — `npm test`; all tests pass (existing 42 + 5 new = 47)
 
-- [ ] **Step 5: Commit** — message `feat(edit-text): wire edit command in CLI`; the controller stages `bin/todo.js` and `test/cli.test.js` and commits — implementer does not run git
+- [x] **Step 5: Commit** — message `feat(edit-text): wire edit command in CLI`; the controller stages `bin/todo.js` and `test/cli.test.js` and commits — implementer does not run git
 
 ## Rulings
 
+- `parseInt(arg, 10)` returns NaN for non-numeric ids; `die("Item NaN not found")` fires — functionally safe, misleading message — spec has no AC for this case, out of scope, parked Minor
+- AC-2.1/2.2 share tmpFile but beforeEach/afterEach resets it per test; no new risk — parked Minor
+- No destructuring guard against NaN needed per spec — parked Minor
+
 ## Result
+
+- Commits: bfc7e35..b121187
+- Tests: 47/47 (src/todo.test.js + test/cli.test.js)
+- Review: spec ✅ · quality: 3 parked Minor
