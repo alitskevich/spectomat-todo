@@ -183,3 +183,39 @@ describe("list --json", () => {
     expect(r.stderr).toContain("Usage:");
   });
 });
+
+describe("edit", () => {
+  it("AC-2.1: updates item text and exits 0 with no stdout", () => {
+    run(["add", "Buy milk"], tmpFile);
+    const r = run(["edit", "1", "Buy oat milk"], tmpFile);
+    expect(r.status).toBe(0);
+    expect(r.stdout).toBe("");
+  });
+
+  it("AC-2.2: todo list shows new text after edit", () => {
+    run(["add", "Buy milk"], tmpFile);
+    run(["edit", "1", "Buy oat milk"], tmpFile);
+    const r = run(["list"], tmpFile);
+    expect(r.stdout).toContain("Buy oat milk");
+    expect(r.stdout).not.toContain("Buy milk");
+  });
+
+  it("AC-2.3: unknown id prints error to stderr and exits 1", () => {
+    const r = run(["edit", "99", "anything"], tmpFile);
+    expect(r.status).toBe(1);
+    expect(r.stderr).toContain("Item 99 not found");
+  });
+
+  it("AC-2.4: missing id prints usage to stderr and exits 1", () => {
+    const r = run(["edit"], tmpFile);
+    expect(r.status).toBe(1);
+    expect(r.stderr).toContain("Usage:");
+  });
+
+  it("AC-2.5: missing text prints usage to stderr and exits 1", () => {
+    run(["add", "Buy milk"], tmpFile);
+    const r = run(["edit", "1"], tmpFile);
+    expect(r.status).toBe(1);
+    expect(r.stderr).toContain("Usage:");
+  });
+});

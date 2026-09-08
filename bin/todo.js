@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import { addItem, listItems, formatItem, markDone, removeItem, wipeItems, formatJson } from "../src/todo.js";
+import { addItem, listItems, formatItem, markDone, removeItem, wipeItems, formatJson, editItem } from "../src/todo.js";
 import { readStore, writeStore } from "../src/store.js";
 
-const USAGE_MSG = "Usage: todo <add <text>|list [--json]|done <id>|remove <id>|wipe>";
+const USAGE_MSG = "Usage: todo <add <text>|list [--json]|done <id>|remove <id>|wipe|edit <id> <text>>";
 const filePath = process.env.TODO_FILE ?? "./todo.json";
-const [, , cmd, arg] = process.argv;
+const [, , cmd, arg, arg2] = process.argv;
 
 function die(msg) {
   process.stderr.write(msg + "\n");
@@ -43,6 +43,11 @@ if (cmd === "add") {
   const count = items.length - remaining.length;
   await writeStore(filePath, remaining);
   process.stdout.write(`Wiped ${count} item(s)\n`);
+} else if (cmd === "edit") {
+  if (!arg || !arg2) die(USAGE_MSG);
+  const id = parseInt(arg, 10);
+  if (!items.find((i) => i.id === id)) die(`Item ${id} not found`);
+  await writeStore(filePath, editItem(items, id, arg2));
 } else {
   die(USAGE_MSG);
 }
