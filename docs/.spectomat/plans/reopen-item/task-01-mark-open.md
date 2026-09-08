@@ -31,7 +31,7 @@
 
 ## Steps
 
-- [ ] **Step 1: Write the failing test** — update the import line and append to `src/todo.test.js`:
+- [x] **Step 1: Write the failing test** — update the import line and append to `src/todo.test.js`:
 
 Update **line 2** of `src/todo.test.js` (the import, currently ends with `editItem`):
 ```js
@@ -71,9 +71,9 @@ describe("markOpen", () => {
 });
 ```
 
-- [ ] **Step 2: Run it, expect FAIL** — `npm test -- src/todo.test.js`; fails with "markOpen is not a function" (or similar import error)
+- [x] **Step 2: Run it, expect FAIL** — `npm test -- src/todo.test.js`; fails with "markOpen is not a function" (or similar import error)
 
-- [ ] **Step 3: Minimal implementation** — append to `src/todo.js`:
+- [x] **Step 3: Minimal implementation** — append to `src/todo.js`:
 
 ```js
 export function markOpen(items, id) {
@@ -81,10 +81,14 @@ export function markOpen(items, id) {
 }
 ```
 
-- [ ] **Step 4: Run it, expect PASS** — `npm test`; all tests pass (existing 47 + 4 new = 51)
+- [x] **Step 4: Run it, expect PASS** — `npm test`; all tests pass (existing 47 + 4 new = 51)
 
-- [ ] **Step 5: Commit** — message `feat(reopen-item): add markOpen pure function`; the controller stages `src/todo.js` and `src/todo.test.js` and commits — implementer does not run git
+- [x] **Step 5: Commit** — message `feat(reopen-item): add markOpen pure function`; the controller stages `src/todo.js` and `src/todo.test.js` and commits — implementer does not run git
 
 ## Rulings
 
 ## Result
+
+- Commits: 876bba7..d033fcd
+- Tests: 51/51 (src/todo.test.js + test/cli.test.js)
+- Review: spec ✅ · quality: clean
