@@ -30,7 +30,7 @@
 
 ## Steps
 
-- [ ] **Step 1: Write the failing test** — update the import line and append to `src/todo.test.js`:
+- [x] **Step 1: Write the failing test** — update the import line and append to `src/todo.test.js`:
 
 Update **line 2** of `src/todo.test.js` (the import):
 ```js
@@ -64,9 +64,9 @@ describe("editItem", () => {
 });
 ```
 
-- [ ] **Step 2: Run it, expect FAIL** — `npm test -- src/todo.test.js`; fails with "editItem is not a function" (or similar import error)
+- [x] **Step 2: Run it, expect FAIL** — `npm test -- src/todo.test.js`; fails with "editItem is not a function" (or similar import error)
 
-- [ ] **Step 3: Minimal implementation** — append to `src/todo.js`:
+- [x] **Step 3: Minimal implementation** — append to `src/todo.js`:
 
 ```js
 export function editItem(items, id, text) {
@@ -74,10 +74,16 @@ export function editItem(items, id, text) {
 }
 ```
 
-- [ ] **Step 4: Run it, expect PASS** — `npm test`; all tests pass (existing 39 + 3 new = 42)
+- [x] **Step 4: Run it, expect PASS** — `npm test`; all tests pass (existing 39 + 3 new = 42)
 
-- [ ] **Step 5: Commit** — message `feat(edit-text): add editItem pure function`; the controller stages `src/todo.js` and `src/todo.test.js` and commits — implementer does not run git
+- [x] **Step 5: Commit** — message `feat(edit-text): add editItem pure function`; the controller stages `src/todo.js` and `src/todo.test.js` and commits — implementer does not run git
 
 ## Rulings
 
+- AC-1.3 test uses `toEqual` (deep equality) rather than `toBe` (referential identity) — the implementation always returns a new array via `map`, so `toBe` would fail even on a no-op; `toEqual` correctly verifies the semantic contract — cost if wrong: none, spec says "unchanged" meaning same content, not same reference
+
 ## Result
+
+- Commits: 577a91c..e167128
+- Tests: 42/42 (src/todo.test.js + test/cli.test.js)
+- Review: spec ✅ · quality: 1 parked Minor
