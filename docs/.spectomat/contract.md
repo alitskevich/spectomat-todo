@@ -19,7 +19,7 @@ docs/.spectomat/
   specs/       normative specs, one per draft slug — you write these
   plans/       one overview per spec slug, plus <slug>/task-NN-<name>.md per task — you write these
   done/        <slug>.draft.md, <slug>.spec.md, <slug>.plan.md and <slug>/ task files, moved here when a plan completes
-  log.md       append-only, one line per phase of work
+  log.md       append-only, one line per phase of work — gitignored, never committed
   contract.md  this file
   state.md     the Stop hook's state (iteration counter, prompt) — gitignored, never edit
   work/        per-task briefs, reports and diffs for executing-tasks — gitignored
@@ -35,7 +35,7 @@ Every iteration, in order:
 1. **Orient.** Read this file. Run `git status --porcelain`. If the tree is
    dirty, the previous iteration died mid-phase: inspect the changes and either
    finish and commit that phase or `git checkout -- .` and `git clean -fd` the
-   paths you own. `state.md` and `work/` are gitignored and never count as dirt. Never start a
+   paths you own. `state.md`, `log.md` and `work/` are gitignored and never count as dirt. Never start a
    phase on a dirty tree. Never touch `drafts/` files except to move them.
 2. **Pick exactly one phase**, the first that applies:
    - **A · Draft → Spec**: a file exists in `drafts/` (alphabetical order,
@@ -51,10 +51,10 @@ Every iteration, in order:
 3. **Do that one phase** (definitions below). Not two.
 4. **Verify** with the gates, then **commit** — one commit per phase,
    `<type>(<slug>): <what changed>`.
-5. **Log** one line to `log.md`, then stop the iteration. In phase C the plan
-   tick and the log line share one `chore(<slug>): …` commit after the
-   implementer's own commits; in every other phase the log line rides in the
-   phase's commit. Never a separate commit just for the log.
+5. **Log** one line to `log.md`, then stop the iteration. The log is
+   gitignored and never enters a commit; write it after the commit, once the
+   phase is on record. In phase C the plan tick is one `chore(<slug>): …`
+   commit after the implementer's own commits.
 
 Drafts always win: while `drafts/` holds a file, no plan advances. That is the
 order the user asked for — every idea is specified before any is built.
@@ -148,12 +148,13 @@ the gates.
 ## Log Format
 
 Append to `log.md`, never edit earlier lines. The timestamp is the output of
-`date -u +%FT%RZ`, run in this iteration — never a time typed from memory:
+`date -u +%FT%RZ`, run in this iteration — never a time typed from memory. No
+commit SHA: `git log` is the ledger of commits, this file the ledger of phases.
 
 ```
-- 2026-09-07T19:40Z · A · <slug> · spec written, 3 assumptions · a1b2c3d
-- 2026-09-07T19:52Z · C · <slug> · Task 2/6 done · tests 41/41 · b4c5d6e
-- 2026-09-07T20:10Z · D · <slug> · moved to done · tsc 0, tests 58/58, lint 0 · c7d8e9f
+- 2026-09-07T19:40Z · A · <slug> · spec written, 3 assumptions
+- 2026-09-07T19:52Z · C · <slug> · Task 2/6 done · tests 41/41
+- 2026-09-07T20:10Z · D · <slug> · moved to done · tsc 0, tests 58/58, lint 0
 - 2026-09-07T20:11Z · B · <slug> · plan: 6 tasks (strike 1: spec §4 contradicts §2)
 ```
 
